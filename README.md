@@ -1,5 +1,5 @@
 - 실제 화면에 아래내용만 추가하면됨!!
-```html
+  ```html
     <!-- 챗봇 버튼 -->
     <div id="chatbot-button" title="챗봇 열기" role="button" aria-label="챗봇 열기" tabindex="0"></div>
 
@@ -16,4 +16,4 @@
 
   ```<script src="https://naranja.my/js/naranja_chatbot.js"></script>```
 
-```<link rel="stylesheet" href="https://naranja.my/css/naranja_chatbot.css">```
+  ```<link rel="stylesheet" href="https://naranja.my/css/naranja_chatbot.css">```
