@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>챗봇 버튼 예제</title>
+    <style>
+        /* 챗봇 버튼 스타일 */
+        #chatbot-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #0084ff;
+            border-radius: 50%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+
+        #chatbot-button:hover {
+            background-color: #006bbf;
+        }
+
+        /* 챗봇 아이콘 (예: 채팅 말풍선) */
+        #chatbot-button::before {
+            content: "💬";
+            font-size: 24px;
+        }
+
+        /* 오버레이 스타일 */
+        #chatbot-overlay {
+            display: none;
+            /* 기본적으로 숨김 */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            /* 버튼보다 낮은 z-index */
+        }
+
+        /* 챗봇 창 스타일 */
+        #chatbot-window {
+            display: none;
+            /* 기본적으로 숨김 */
+            position: fixed;
+            bottom: 90px;
+            /* 버튼 위에 위치하도록 */
+            right: 20px;
+            width: 400px;
+            height: 600px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 1001;
+            /* 버튼보다 높은 z-index */
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* 닫기 버튼 스타일 */
+        #chatbot-close {
+            align-self: flex-end;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            color: #555;
+        }
+
+        #chatbot-close:hover {
+            color: #000;
+        }
+
+        /* iframe 스타일 */
+        #chatbot-iframe {
+            flex: 1;
+            border: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 500px) {
+            #chatbot-window {
+                width: 90%;
+                height: 80%;
+                bottom: 10%;
+                right: 5%;
+            }
+        }
+
+        /* 더미 콘텐츠 스타일 */
+        .dummy-content {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .dummy-section {
+            margin-bottom: 40px;
+        }
+
+        .dummy-section h2 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .dummy-section p {
+            line-height: 1.6;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 챗봇 버튼 -->
+    <div id="chatbot-button" title="챗봇 열기" role="button" aria-label="챗봇 열기" tabindex="0"></div>
+
+    <!-- 오버레이 -->
+    <div id="chatbot-overlay" aria-hidden="true"></div>
+
+    <!-- 챗봇 창 -->
+    <div id="chatbot-window" role="dialog" aria-modal="true" aria-labelledby="chatbot-title">
+        <div id="chatbot-close" title="챗봇 닫기" role="button" aria-label="챗봇 닫기" tabindex="0">&times;</div>
+        <iframe id="chatbot-iframe" src="https://dr-o.naranja.my/" allow="microphone; camera" title="챗봇"></iframe>
+    </div>
+
+    <!-- 더미 콘텐츠 -->
+    <div class="dummy-content">
+        <h1>환영합니다!</h1>
+        <div class="dummy-section">
+            <h2>섹션 1</h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec varius velit.
+                Suspendisse potenti. Nulla facilisi. Integer at quam at sapien tincidunt scelerisque.
+                Duis vehicula, nunc sit amet commodo facilisis, enim nulla aliquet purus, sit amet
+                tristique lectus lectus at odio.
+            </p>
+        </div>
+        <div class="dummy-section">
+            <h2>섹션 2</h2>
+            <p>
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+                architecto beatae vitae dicta sunt explicabo.
+            </p>
+        </div>
+        <div class="dummy-section">
+            <h2>섹션 3</h2>
+            <p>
+                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
+                voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint
+                occaecati cupiditate non provident.
+            </p>
+        </div>
+        <div class="dummy-section">
+            <h2>섹션 4</h2>
+            <p>
+                Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus
+                id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor
+                repellendus.
+            </p>
+        </div>
+        <div class="dummy-section">
+            <h2>섹션 5</h2>
+            <p>
+                Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe
+                eveniet ut et voluptates repudiandae sint et molestiae non recusandae.
+            </p>
+        </div>
+        <!-- 필요한 만큼 섹션 추가 -->
+    </div>
+
+    <script>
+        // 요소 가져오기
+        const chatbotButton = document.getElementById('chatbot-button');
+        const chatbotOverlay = document.getElementById('chatbot-overlay');
+        const chatbotWindow = document.getElementById('chatbot-window');
+        const chatbotClose = document.getElementById('chatbot-close');
+
+        // 초기 상태 설정: 오버레이와 창을 숨김
+        function initializeChatbot() {
+            chatbotOverlay.style.display = 'none';
+            chatbotWindow.style.display = 'none';
+            chatbotOverlay.setAttribute('aria-hidden', 'true');
+            chatbotButton.setAttribute('aria-label', '챗봇 열기');
+        }
+
+        // 챗봇 열기 함수
+        function openChatbot() {
+            chatbotOverlay.style.display = 'block';
+            chatbotWindow.style.display = 'flex';
+            chatbotOverlay.setAttribute('aria-hidden', 'false');
+            chatbotButton.setAttribute('aria-label', '챗봇 닫기');
+        }
+
+        // 챗봇 닫기 함수
+        function closeChatbot() {
+            chatbotOverlay.style.display = 'none';
+            chatbotWindow.style.display = 'none';
+            chatbotOverlay.setAttribute('aria-hidden', 'true');
+            chatbotButton.setAttribute('aria-label', '챗봇 열기');
+        }
+
+        // 챗봇 토글 함수
+        function toggleChatbot() {
+            const isOpen = window.getComputedStyle(chatbotOverlay).display !== 'none';
+            if (isOpen) {
+                closeChatbot();
+            } else {
+                openChatbot();
+            }
+        }
+
+        // 이벤트 리스너 추가
+        chatbotButton.addEventListener('click', toggleChatbot);
+        chatbotClose.addEventListener('click', closeChatbot);
+        chatbotOverlay.addEventListener('click', closeChatbot);
+
+        // 키보드 접근성: Enter 또는 Space 키로 챗봇 열기/닫기
+        chatbotButton.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault(); // 스크롤 방지
+                toggleChatbot();
+            }
+        });
+
+        chatbotClose.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault(); // 스크롤 방지
+                closeChatbot();
+            }
+        });
+
+        // ESC 키로 챗봇 닫기
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                closeChatbot();
+            }
+        });
+
+        // 페이지 로드 시 초기화
+        window.addEventListener('load', initializeChatbot);
+    </script>
+
+</body>
+
+</html>
