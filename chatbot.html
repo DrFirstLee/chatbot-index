@@ -117,15 +117,6 @@
             <div class="message bot">
                 <div class="content">무엇을 도와드릴까요?</div>
             </div>
-            <div class="message user">
-                <div class="content">12월 택시 운행율 정보 알려줘</div>
-            </div>
-            <div class="message bot">
-                <div class="content">12월 택시 운행율의 일별 정보는 아래와 같습니다:<br><br>
-                12/1: 93%<br>
-                12/2: 88%<br>
-                12/3: 95%</div>
-            </div>
         </div>
 
         
@@ -151,7 +142,7 @@
             // Add bot's response (for demonstration)
             const botMessage = document.createElement('div');
             botMessage.classList.add('message', 'bot');
-            botMessage.innerHTML = `<div class="content">Thank you for your message. Let me assist you!</div>`;
+            botMessage.innerHTML = `<div class="content">문의 주셔서 감사합니다! 이 부분은 추후 GPT와 연계되어 작동됩니다</div>`;
             chatMessages.appendChild(botMessage);
 
             // Clear input
