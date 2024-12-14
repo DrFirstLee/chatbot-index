@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Management Chatbot</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            width: 90%;
+            height : 100%;
+            max-width: 600px;
+            border: 1px solid #dcdfe6;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-header {
+            background: #004085;
+            color: #fff;
+            padding: 16px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .chat-messages {
+            padding: 16px;
+            flex-grow: 1;
+            overflow-y: auto;
+            max-height: 400px;
+        }
+
+        .message {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .message.bot {
+            flex-direction: row;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message .content {
+            background: #f4f6f9;
+            color: #333;
+            padding: 12px;
+            border-radius: 8px;
+            max-width: 70%;
+        }
+
+        .message.bot .content {
+            background: #d9edf7;
+        }
+
+        .message.user .content {
+            background: #d4edda;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 16px;
+            border-top: 1px solid #dcdfe6;
+        }
+
+        .chat-input input {
+            flex-grow: 1;
+            padding: 8px 12px;
+            border: 1px solid #dcdfe6;
+            border-radius: 4px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .chat-input button {
+            background-color: #004085;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            margin-left: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .chat-input button:hover {
+            background-color: #003366;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            경영관리 지표 문의 챗봇 
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot">
+                <div class="content">무엇을 도와드릴까요?</div>
+            </div>
+            <div class="message user">
+                <div class="content">12월 택시 운행율 정보 알려줘</div>
+            </div>
+            <div class="message bot">
+                <div class="content">12월 택시 운행율의 일별 정보는 아래와 같습니다:<br><br>
+                12/1: 93%<br>
+                12/2: 88%<br>
+                12/3: 95%</div>
+            </div>
+        </div>
+
+        
+        <div class="chat-input">
+            <input type="text" id="userInput" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const userInput = document.getElementById('userInput');
+            const chatMessages = document.getElementById('chatMessages');
+
+            if (userInput.value.trim() === '') return;
+
+            // Add user's message
+            const userMessage = document.createElement('div');
+            userMessage.classList.add('message', 'user');
+            userMessage.innerHTML = `<div class="content">${userInput.value}</div>`;
+            chatMessages.appendChild(userMessage);
+
+            // Add bot's response (for demonstration)
+            const botMessage = document.createElement('div');
+            botMessage.classList.add('message', 'bot');
+            botMessage.innerHTML = `<div class="content">Thank you for your message. Let me assist you!</div>`;
+            chatMessages.appendChild(botMessage);
+
+            // Clear input
+            userInput.value = '';
+
+            // Scroll to the bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    </script>
+</body>
+</html>
