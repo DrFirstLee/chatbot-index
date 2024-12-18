@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>챗봇 버튼 예제</title>
+
+</head>
+<!-- <link rel="stylesheet" href="chatbot.css"> -->
+<link rel="stylesheet" href="https://naranja.my/css/naranja_chatbot.css">
+
+
+<body>
+
+    <!-- 챗봇 버튼 -->
+    <div id="chatbot-button" title="챗봇 열기" role="button" aria-label="챗봇 열기" tabindex="0"></div>
+
+    <!-- 오버레이 -->
+    <div id="chatbot-overlay" aria-hidden="true"></div>
+
+    <!-- 챗봇 창 -->
+    <div id="chatbot-window" role="dialog" aria-modal="true" aria-labelledby="chatbot-title">
+        <div id="chatbot-close" title="챗봇 닫기" role="button" aria-label="챗봇 닫기" tabindex="0">&times;</div>
+        <iframe id="chatbot-iframe" src="chatbot.html" allow="microphone; camera" title="챗봇"></iframe>
+    </div>
+
+    <!-- 더미 콘텐츠 -->
+    <div class="dummy-content">
+        <h1>환영합니다!</h1>
+        <div class="dummy-section">
+            <h2>섹션 1</h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec varius velit.
+                Suspendisse potenti. Nulla facilisi. Integer at quam at sapien tincidunt scelerisque.
+                Duis vehicula, nunc sit amet commodo facilisis, enim nulla aliquet purus, sit amet
+                tristique lectus lectus at odio.
+            </p>
+        </div>
+        <div class="dummy-section">
+            <h2>섹션 2</h2>
+            <p>
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+                architecto beatae vitae dicta sunt explicabo.
+            </p>
+        </div>
+        <div class="dummy-section">
+            <h2>섹션 3</h2>
+            <p>
+                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
+                voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint
+                occaecati cupiditate non provident.
+            </p>
+        </div>
+        <div class="dummy-section">
+            <h2>섹션 4</h2>
+            <p>
+                Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus
+                id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor
+                repellendus.
+            </p>
+        </div>
+        <div class="dummy-section">
+            <h2>섹션 5</h2>
+            <p>
+                Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe
+                eveniet ut et voluptates repudiandae sint et molestiae non recusandae.
+            </p>
+        </div>
+        <!-- 필요한 만큼 섹션 추가 -->
+    </div>
+
+
+</body>
+<!-- <script src="chatbot.js"></script> -->
+
+<script src="https://naranja.my/js/naranja_chatbot.js"></script>
+
+
+</html>
