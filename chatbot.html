@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Business Management Chatbot</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -21,7 +22,7 @@
             display: flex;
             flex-direction: column;
             width: 90%;
-            height : 100%;
+            height: 100%;
             max-width: 600px;
             border: 1px solid #dcdfe6;
             border-radius: 8px;
@@ -44,21 +45,18 @@
             padding: 16px;
             flex-grow: 1;
             overflow-y: auto;
-            max-height: 400px;
+            max-height: 100%;
         }
 
         .message {
             margin-bottom: 12px;
             display: flex;
+            flex-direction: column;
             align-items: flex-start;
         }
 
-        .message.bot {
-            flex-direction: row;
-        }
-
         .message.user {
-            flex-direction: row-reverse;
+            align-items: flex-end;
         }
 
         .message .content {
@@ -75,6 +73,12 @@
 
         .message.user .content {
             background: #d4edda;
+        }
+
+        .chart-container {
+            width: 300px;
+            height: 300px;
+            margin-top: 10px;
         }
 
         .chat-input {
@@ -111,7 +115,7 @@
 <body>
     <div class="chat-container">
         <div class="chat-header">
-            경영관리 지표 문의 챗봇 
+            경영관리 지표 문의 챗봇
         </div>
         <div class="chat-messages" id="chatMessages">
             <div class="message bot">
@@ -119,7 +123,6 @@
             </div>
         </div>
 
-        
         <div class="chat-input">
             <input type="text" id="userInput" placeholder="Type your message...">
             <button onclick="sendMessage()">Send</button>
@@ -127,6 +130,13 @@
     </div>
 
     <script>
+            // 엔터 키로 메시지 전송
+    document.getElementById('userInput').addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            sendMessage();
+        }
+    });
+    
         function sendMessage() {
             const userInput = document.getElementById('userInput');
             const chatMessages = document.getElementById('chatMessages');
@@ -139,11 +149,87 @@
             userMessage.innerHTML = `<div class="content">${userInput.value}</div>`;
             chatMessages.appendChild(userMessage);
 
-            // Add bot's response (for demonstration)
+            // Add bot's response
             const botMessage = document.createElement('div');
             botMessage.classList.add('message', 'bot');
-            botMessage.innerHTML = `<div class="content">문의 주셔서 감사합니다! 이 부분은 추후 GPT와 연계되어 작동됩니다</div>`;
+            botMessage.innerHTML = `<div class="content">문의 주셔서 감사합니다! 아래는 분석 결과입니다.</div>`;
             chatMessages.appendChild(botMessage);
+
+            // Add chart below bot message
+            const chartContainer = document.createElement('div');
+            chartContainer.classList.add('chart-container');
+            const chartCanvas = document.createElement('canvas');
+            chartCanvas.id = 'chart-' + Date.now();
+            chartContainer.appendChild(chartCanvas);
+            chatMessages.appendChild(chartContainer);
+
+            // Initialize chart based on user input
+            const ctx = chartCanvas.getContext('2d');
+            if (userInput.value.includes('막대')) {
+                // 막대그래프 생성
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Apple', 'Banana', 'Corn', 'Etc'],
+                        datasets: [{
+                            label: 'Fruit Distribution',
+                            data: [30, 20, 10, 40],
+                            backgroundColor: ['#FF6384', '#FFCE56', '#36A2EB', '#4BC0C0']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            }
+                        }
+                    }
+                });
+            }  else if (userInput.value.includes('직선')) {
+                // 선그래프 생성
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Apple', 'Banana', 'Corn', 'Etc'],
+                        datasets: [{
+                            label: 'Fruit Distribution',
+                            data: [30, 20, 10, 40],
+                            borderColor: '#36A2EB',
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            }
+                        }
+                    }
+                });
+            } else {
+                // 파이차트 생성
+                new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Apple', 'Banana', 'Corn', 'Etc'],
+                        datasets: [{
+                            label: 'Fruit Distribution',
+                            data: [30, 20, 10, 40],
+                            backgroundColor: ['#FF6384', '#FFCE56', '#36A2EB', '#4BC0C0']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            }
+                        }
+                    }
+                });
+            }
 
             // Clear input
             userInput.value = '';
