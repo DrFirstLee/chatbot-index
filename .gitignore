@@ -1,0 +1,15 @@
+# C, csv, jpynb extensions
+*.so
+*.csv
+*.jpynb
+*.ipynb
+*.log
+
+__pycache__/*
+**/__pycache__/*
+data/*
+notebooks/*
+output/*
+!data/__init__.py
+!notebooks/__init__.py
+!output/__init__.py

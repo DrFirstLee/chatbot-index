@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -112,6 +113,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="chat-container">
         <div class="chat-header">
@@ -130,25 +132,43 @@
     </div>
 
     <script>
-            // 엔터 키로 메시지 전송
-    document.getElementById('userInput').addEventListener('keydown', function(event) {
-        if (event.key === 'Enter') {
-            sendMessage();
-        }
-    });
-    
-        function sendMessage() {
+        // 엔터 키로 메시지 전송
+        document.getElementById('userInput').addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        async function sendMessage() {
             const userInput = document.getElementById('userInput');
             const chatMessages = document.getElementById('chatMessages');
 
             if (userInput.value.trim() === '') return;
 
+           
             // Add user's message
             const userMessage = document.createElement('div');
             userMessage.classList.add('message', 'user');
             userMessage.innerHTML = `<div class="content">${userInput.value}</div>`;
             chatMessages.appendChild(userMessage);
 
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            if (userInput.value.includes('GPT')) {
+                const botLoadingMessage = document.createElement('div');
+                botLoadingMessage.classList.add('message', 'bot');
+                botLoadingMessage.innerHTML = `<div class="content">GPT가 답변을 작성 중입니다...</div>`;
+                chatMessages.appendChild(botLoadingMessage);
+
+                const response = await callGPTAPI(userInput.value);
+                chatMessages.removeChild(botLoadingMessage);
+
+                const botResponseMessage = document.createElement('div');
+                botResponseMessage.classList.add('message', 'bot');
+                botResponseMessage.innerHTML = `<div class="content">${response}</div>`;
+                chatMessages.appendChild(botResponseMessage);
+
+    } 
+            else {
             // Add bot's response
             const botMessage = document.createElement('div');
             botMessage.classList.add('message', 'bot');
@@ -186,7 +206,7 @@
                         }
                     }
                 });
-            }  else if (userInput.value.includes('직선')) {
+            } else if (userInput.value.includes('직선')) {
                 // 선그래프 생성
                 new Chart(ctx, {
                     type: 'line',
@@ -237,6 +257,42 @@
             // Scroll to the bottom
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
+    }
+
+    // GPT API 호출 함수
+async function callGPTAPI(prompt) {
+    const apiKey = "{여기에 키 입력}";
+    const apiUrl = "https://api.openai.com/v1/chat/completions";
+
+    const requestBody = {
+        model: "gpt-4o-mini",
+        messages: [
+            { role: "system", content: "너는 경영관리지표 문의 챗봇이야." },
+            { role: "user", content: prompt }
+        ],
+        max_tokens: 100,
+        temperature: 0.7
+    };
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Authorization": `Bearer ${apiKey}` },
+            body: JSON.stringify(requestBody)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data.choices[0].message.content;
+    } catch (error) {
+        console.error("Error calling GPT API:", error);
+        return "GPT로부터 응답을 가져오지 못했습니다. 다시 시도해주세요.";
+    }
+}
     </script>
 </body>
+
 </html>
