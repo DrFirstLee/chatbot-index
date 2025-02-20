@@ -34,9 +34,9 @@
         <p>This is the main content area. It takes 3/4 of the screen width.</p>
         <button id="sendMessage">Send Message to iFrame</button>
     </div>
-    <div class="iframe-container">
+<!--     <div class="iframe-container">
         <iframe id="targetFrame" src="https://dr-o.naranja.my/" title="Embedded Page"></iframe>
-    </div>
+    </div> -->
 
     <script>
         document.getElementById('sendMessage').addEventListener('click', () => {
@@ -45,5 +45,20 @@
             iframe.contentWindow.postMessage(message, 'https://dr-o.naranja.my');
         });
     </script>
+
+
+
+      <!-- 챗봇 버튼 -->
+  <div id="chatbot-button" title="챗봇 열기" role="button" aria-label="챗봇 열기" tabindex="0"></div>
+
+  <!-- 오버레이 -->
+  <div id="chatbot-overlay" aria-hidden="true"></div>
+
+  <!-- 챗봇 창 -->
+  <div id="chatbot-window" role="dialog" aria-modal="true" aria-labelledby="chatbot-title">
+      <div id="chatbot-close" title="챗봇 닫기" role="button" aria-label="챗봇 닫기" tabindex="0">&times;</div>
+      <iframe id="chatbot-iframe" src="https://dr-o.naranja.my/" allow="microphone; camera" title="챗봇"></iframe>
+  </div>
+    
 </body>
 </html>
